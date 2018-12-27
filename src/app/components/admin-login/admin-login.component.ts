@@ -49,29 +49,30 @@ export class AdminLoginComponent implements OnInit {
     const username = this.validateForm.value.userName;
     const password = this.validateForm.value.password;
     const params = {
-      username: username,
+      account: username,
       password: password
     }
     const that = this;
-    this.http.post('data', params)
+    this.http.post('adminLogin', params)
       .subscribe(
       (res) => {
-        if (res.error) {
-          if (+res.error.returnCode === 1) {
-            this.message.error('用户名或密码错误');
-          } 
+        if (res.code === 200) {
+          let formatData = Object.assign(res.data, {
+            username: that.validateForm.value.userName
+          });
+          Cookie.set('loginInfo', JSON.stringify(formatData));
+          this.message.success('登录成功');
+          setTimeout(() => {
+            that.nextRout = 'admin-home';
+            that.router.navigate([that.nextRout]);
+          }, 2000)
+        } else {
+          this.message.error(res.msg);
+          console.log(res.msg);
         }
-        if(!res.data){
-          return; //zyr
-        }
-        let formatData = Object.assign(res.data, {
-          username: that.validateForm.value.userName
-        });
-        Cookie.set('loginInfo', JSON.stringify(formatData));
-        that.nextRout = 'main/deploy';
-        that.router.navigate([that.nextRout]);
       },
       (error) => {
+        this.message.error(error);
         console.log(error);
       }
     )

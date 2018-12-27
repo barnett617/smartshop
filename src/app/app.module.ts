@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
@@ -34,6 +35,7 @@ registerLocaleData(zh);
     NgZorroAntdModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpModule,
     HttpClientModule,
     BrowserAnimationsModule,
   ],

@@ -3,6 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { mergeMap } from 'rxjs/operators';
 import { from } from 'rxjs';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { map } from"rxjs/operators";
+import { objectAssign } from './object-assign';
 
 import * as md5 from 'md5';
 
@@ -13,16 +17,6 @@ const env = environment.env;
 console.log('env', env);
 
 const getUrlFromApis = api => apis[api][env];
-
-const calcDefaultParams = (app) => {
-  return {
-    mobileType: app.mobileType,
-    token: app.token,
-    versionNumber: app.versionNumber,
-    userId: app.userId, // 这个不是必须的
-    // appKey: app.appKey
-  };
-};
 
 const hostDebug = app => {
   if (app.host.charAt(app.host.length - 1) === '/') {
@@ -44,130 +38,39 @@ function obj2Str(obj, lianjiefu = '&') {
   return i;
 }
 
-const getHeader = (token, signMsg) => new HttpHeaders({
-  'token': token,
-  'signMsg': signMsg
-});
-
-const getHeaderPost = (token, signMsg) => new HttpHeaders({
-  'token': token,
-  'signMsg': signMsg,
-  'Content-Type': 'application/x-www-form-urlencoded'
-});
-
 @Injectable()
 export class HttpService {
-  co: any;
 
-  constructor(private http: HttpClient) {
-    this.co = window.createObserver;
+  constructor(private http: Http) {
   }
 
-  calcSignMsg(app, ops) {
-
-    const app2 = calcDefaultParams(app);
-    const appKeyAoauthToken = app.appKey + app.token;
-
-    const ctm = Object.assign({}, app2, ops);
-
-    const ctmArr = [];
-    for (let i in ctm) {
-      ctmArr.push(i + '=' + ctm[i]);
-    }
-    const canshuArr = ctmArr.sort();
-
-    const signMsg = md5(appKeyAoauthToken + canshuArr.join('|'));
-    return [signMsg.toUpperCase(), canshuArr];
-  }
-
-  get(api, option = {}) {
-    const url = getUrlFromApis(api);
-    return this.co()
-      .pipe(mergeMap(app => {
-        hostDebug(app);
-        const [signMsg, canshu] = this.calcSignMsg(app, option);
-        return this.http.get((<any>app).host + url + '?' + canshu.join('&'),
-          {headers: getHeader((<any>app).token, signMsg)});
-      }));
-  }
-
-  fetchInfo() {
-    return this.co()
-      .pipe(
-        mergeMap(app =>
-          from([JSON.parse(JSON.stringify(app))])
-        ));
-  }
-
-  post(api, option = {}) {
-    const url = getUrlFromApis(api);
-    return this.co()
-      .pipe(mergeMap(app => {
-        hostDebug(app);
-        const [signMsg, canshu] = this.calcSignMsg(app, option);
-        return this.http.post((<any>app).host + url, canshu.join('&'),
-          {headers: getHeaderPost((<any>app).token, signMsg)});
-      }));
-  }
-
-  login(api, option = {}) {
-    // 需要app给我appKey和host
-    //post /api/api/user/isPhoneExists.htm,mobileType,phone,versionNumber
-    //post /api/api/user/login.htm  loginName,loginPwd,mobileType,versionNumber
-
-    // @ts-ignore
-    if (option.loginPwd) {
-      // @ts-ignore
-      option.loginPwd = md5(option.loginPwd).toUpperCase();
-    }
-
-    const url = getUrlFromApis(api);
-    const head = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-
-
-    return this.co()
-      .pipe(mergeMap((app: any) => {
-        hostDebug(app);
-
-
-        if (api === 'isPhoneExists') {
-          // @ts-ignore
-          return this.http.get((<any>app).host + url + '?phone=' + option.phone);
+  
+  post(apiName, dataObj, isIntercept = true, isFromAuth = false) {
+    let cookieStr = Cookie.get('loginInfo');
+    let cookieObj:any = {};
+    let cookieData:any = {};
+    if (cookieStr) {
+        try {
+            cookieObj = JSON.parse(cookieStr);
+            cookieData = {
+                token: cookieObj.token,
+            };
         }
-
-
-        const ctmArr = [];
-        const option2 = Object.assign({}, option, {
-          mobileType: app.mobileType,
-          versionNumber: app.versionNumber
-        });
-        for (let i in option2) {
-          ctmArr.push(i + '=' + option2[i]);
+        catch(e) {
+            console.log('parse cookie error...');
         }
-        const canshuArr = ctmArr.sort();
-        console.log(app.appKey + canshuArr.join('|'));
-        const signMsg = md5(app.appKey + canshuArr.join('|')).toUpperCase();
-        const header = new HttpHeaders({
-          'signMsg': signMsg,
-          'Content-Type': 'application/x-www-form-urlencoded'
-        });
-        console.log('url', (<any>app).host + url);
-        console.log('canshuArr.join(\'&\')', canshuArr.join('&'));
-        console.log({headers: header});
-        return this.http.post((<any>app).host + url, canshuArr.join('&'),
-          {headers: header});
-      }));
+    }
+    let data = objectAssign({}, cookieData, dataObj);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    const reqUrl = getUrlFromApis(apiName);
+    var requestoptions = new RequestOptions({
+        headers: headers,
+        method: 'post',
+        body: data || {}
+    })
+    return this.http.request(reqUrl, requestoptions)
+        .pipe(map((res: Response) => res.json()))
   }
+
 }
-
-// scp -r . root@47.94.98.243:/data/release/api/cashloan-api-1.0.1/h5
-// scp hybrid.zip root@47.94.98.243:/www/server/apache-tomcat-8.5.35/webapps/cashloan-api-1.0.1/h5
-// Qweasd123
-
-// http://47.94.98.243/api/h5/index.html
-
-//git rev-parse --short HEAD
-//  zip -r webview.zip *
-// <script>document.write('<base href="' + document.location + '" />');</script>
