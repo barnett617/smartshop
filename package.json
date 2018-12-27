@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.js --host=0.0.0.0 -o --base-href /",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -21,6 +21,9 @@
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
     "core-js": "^2.5.4",
+    "md5": "^2.2.1",
+    "ng-zorro-antd": "^7.0.0-rc.3",
+    "ng2-cookies": "^1.0.12",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26"
   },

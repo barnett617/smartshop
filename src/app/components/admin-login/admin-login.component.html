@@ -1,0 +1,32 @@
+<div class="login">
+  <div class="content">
+      <div>
+        <h3>欢迎登陆</h3>
+        <form ng-keypress="enterEvent($event)" nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+            <nz-form-item>
+              <nz-form-control>
+                <nz-input-group [nzPrefix]="prefixUser">
+                  <input class="login-form-input" type="text" nz-input formControlName="userName" placeholder="请输入用户名">
+                </nz-input-group>
+                <nz-form-explain class="login-form-warn" *ngIf="validateForm.get('userName').dirty && validateForm.get('userName').errors">请输入用户名!</nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <nz-input-group [nzPrefix]="prefixLock">
+                  <input class="login-form-input" type="password" nz-input formControlName="password" placeholder="请输入密码">
+                </nz-input-group>
+                <nz-form-explain class="login-form-warn" *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">请输入密码!</nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <button class="login-form-btn" (click)="handleLogin()" nz-button nzBlock [nzType]="'primary'">登录</button>
+              </nz-form-control>
+            </nz-form-item>
+        </form>
+        <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+        <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+      </div>
+  </div>
+</div>

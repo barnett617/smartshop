@@ -1,0 +1,48 @@
+.login {
+  position: relative;
+  width: 100%;
+  background: #333;
+  overflow: hidden;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+	background-position: center center;
+  background-image: url('../../../assets/img/bg.jpg');
+}
+.content h3 {
+  text-align: center;
+	height: 24px;
+	font: 24px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei",sans-serif;
+	color: #FFFFFF;
+	height: 24px;
+	line-height: 24px;
+	padding:0 0 35px 0; 
+}
+.login-form {
+  width: 400px;
+  padding: 35px;
+  color: #EEE;
+}
+.login-form-input {
+  height: 46px;
+  padding: 0 5px;
+  border-radius: 50px;
+  border: rgba(255,255,255,0.2) 2px solid !important;
+}
+.login-form-warn {
+  padding: 10px 32px;
+}
+[nz-button] {
+  height: 46px;
+  padding: 0 5px;
+  margin-bottom: 30px;
+  border-radius: 50px;
+  border: rgba(255,255,255,0.2) 2px solid !important;
+  line-height: 20px;
+  font-size: 20px;
+  border-radius: 50px;
+  background: #0096e6;
+} 
