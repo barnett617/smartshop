@@ -40,3 +40,6 @@ Thumbs.db
 
 # deploy file
 dep.sh
+
+# config file
+src/config.ts
