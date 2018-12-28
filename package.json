@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.js --host=0.0.0.0 -o --base-href /",
+    "start": "ng serve --port 5000 --proxy-config proxy.js --host=0.0.0.0 -o --base-href /",
     "build": "ng build",
     "prod": "ng build --prod --base-href ./",
     "test": "ng test",
