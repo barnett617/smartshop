@@ -1,0 +1,49 @@
+:host ::ng-deep .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+:host ::ng-deep .trigger:hover {
+  color: #1890ff;
+}
+
+:host ::ng-deep .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, .2);
+  margin: 16px;
+}
+.admin-home {
+  display: flex;
+  height: 100vh;
+  &-header {
+    background: #fff;
+    padding: 0;
+    display: flex;
+    &-text {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &-right {
+        padding: 0 20px;
+        span {
+          padding-right: 5px;
+        }
+      }
+    }
+  }
+  &-content {
+    margin: 0 16px;
+    &-bread {
+      margin: 16px 0;
+    }
+    &-main {
+      padding: 24px; 
+      background: #fff; 
+      min-height: 360px;
+    }
+  }
+}
