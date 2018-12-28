@@ -56,7 +56,7 @@ export class AdminLoginComponent implements OnInit {
     this.http.post('adminLogin', params)
       .subscribe(
       (res) => {
-        if (res.code === 200) {
+        if (+res.code === 200) {
           let formatData = Object.assign(res.data, {
             username: that.validateForm.value.userName
           });
