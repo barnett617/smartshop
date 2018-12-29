@@ -1,0 +1,36 @@
+<div class="admin-goods-manage">
+  <nz-input-group class="admin-goods-manage-search" nzSearch [nzSuffix]="suffixButton">
+    <input type="text" nz-input placeholder="输入商品名称进行查询">
+  </nz-input-group>
+  <ng-template #suffixButton>
+    <button nz-button nzType="primary" nzSearch>查询</button>
+  </ng-template>
+  <nz-table #basicTable [nzData]="dataSet">
+    <thead>
+      <tr>
+        <th>图片</th>
+        <th>名称</th>
+        <th>类型</th>
+        <th>单位</th>
+        <th>价格</th>
+        <th>说明</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{data.img}}</td>
+        <td>{{data.name}}</td>
+        <td>{{data.category}}</td>
+        <td>{{data.unit}}</td>
+        <td>{{data.price}}</td>
+        <td>{{data.description}}</td>
+        <td>
+          <a [routerLink]="[ 'goods-edit' ]">修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a>删除</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

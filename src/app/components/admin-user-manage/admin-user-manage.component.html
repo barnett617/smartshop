@@ -1,0 +1,40 @@
+<div class="admin-user-manage">
+    <nz-input-group class="admin-user-manage-search" nzSearch [nzSuffix]="suffixButton">
+      <input type="text" nz-input placeholder="输入用户名进行查询">
+    </nz-input-group>
+    <ng-template #suffixButton>
+      <button nz-button nzType="primary" nzSearch>查询</button>
+    </ng-template>
+    <nz-table #basicTable [nzData]="dataSet">
+      <thead>
+        <tr>
+          <th>用户名</th>
+          <th>性别</th>
+          <th>年龄</th>
+          <th>电子邮件</th>
+          <th>是否禁用</th>
+          <th>角色</th>
+          <th>折扣</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{data.username}}</td>
+          <td>{{data.sex}}</td>
+          <td>{{data.age}}</td>
+          <td>{{data.email}}</td>
+          <td>{{data.block}}</td>
+          <td>{{data.role}}</td>
+          <td>{{data.discount}}</td>
+          <td>{{data.createTime}}</td>
+          <td>
+            <a [routerLink]="[ 'dish-manage' ]">修改</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a>删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>

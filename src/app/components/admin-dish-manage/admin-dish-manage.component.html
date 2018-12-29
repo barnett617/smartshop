@@ -1,0 +1,38 @@
+<div class="admin-dish-manage">
+    <nz-input-group class="admin-dish-manage-search" nzSearch [nzSuffix]="suffixButton">
+      <input type="text" nz-input placeholder="输入菜品名称进行查询">
+    </nz-input-group>
+    <ng-template #suffixButton>
+      <button nz-button nzType="primary" nzSearch>查询</button>
+    </ng-template>
+    <nz-table #basicTable [nzData]="dataSet">
+      <thead>
+        <tr>
+          <th>名称</th>
+          <th>原材料A</th>
+          <th>原材料B</th>
+          <th>原材料C</th>
+          <th>原材料D</th>
+          <th>原材料E</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{data.name}}</td>
+          <td>{{data.itema}}</td>
+          <td>{{data.itemb}}</td>
+          <td>{{data.itemc}}</td>
+          <td>{{data.itemd}}</td>
+          <td>{{data.iteme}}</td>
+          <td>{{data.createTime}}</td>
+          <td>
+            <a [routerLink]="[ 'dish-manage' ]">修改</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a>删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>

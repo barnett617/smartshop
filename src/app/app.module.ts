@@ -18,6 +18,13 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
+import { AdminGoodsManageComponent } from './components/admin-goods-manage/admin-goods-manage.component';
+import { AdminGoodsEditComponent } from './components/admin-goods-edit/admin-goods-edit.component';
+import { AdminDishManageComponent } from './components/admin-dish-manage/admin-dish-manage.component';
+import { AdminDishEditComponent } from './components/admin-dish-edit/admin-dish-edit.component';
+import { AdminUserManageComponent } from './components/admin-user-manage/admin-user-manage.component';
+import { AdminUserEditComponent } from './components/admin-user-edit/admin-user-edit.component';
+import { AdminOrderManageComponent } from './components/admin-order-manage/admin-order-manage.component';
 
 registerLocaleData(zh);
 
@@ -28,6 +35,13 @@ registerLocaleData(zh);
     LoginComponent,
     AdminLoginComponent,
     AdminHomeComponent,
+    AdminGoodsManageComponent,
+    AdminGoodsEditComponent,
+    AdminDishManageComponent,
+    AdminDishEditComponent,
+    AdminUserManageComponent,
+    AdminUserEditComponent,
+    AdminOrderManageComponent,
   ],
   imports: [
     BrowserModule,

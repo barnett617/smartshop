@@ -36,6 +36,7 @@
     }
   }
   &-content {
+    min-height: 480px;
     margin: 0 16px;
     &-bread {
       margin: 16px 0;
@@ -43,7 +44,6 @@
     &-main {
       padding: 24px; 
       background: #fff; 
-      min-height: 360px;
     }
   }
 }
