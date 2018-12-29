@@ -3,16 +3,10 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="4" nzRequired>名称</nz-form-label>
         <nz-form-control [nzSpan]="12" nzHasFeedback>
-          <input nz-input formControlName="userName" placeholder="">
-          <nz-form-explain *ngIf="validateForm.get('userName').dirty && validateForm.get('userName').errors || validateForm.get('userName').pending ">
-            <ng-container *ngIf="validateForm.get('userName').hasError('required')">
-              Please input your username!
-            </ng-container>
-            <ng-container *ngIf="validateForm.get('userName').hasError('duplicated')">
-              The username is redundant!
-            </ng-container>
-            <ng-container *ngIf="validateForm.get('userName').pending">
-              Validating...
+          <input nz-input formControlName="name" placeholder="请输入商品名称">
+          <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">
+            <ng-container *ngIf="validateForm.get('name').hasError('required')">
+              请输入商品名称
             </ng-container>
           </nz-form-explain>
         </nz-form-control>
@@ -20,36 +14,32 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="4" nzRequired>类型</nz-form-label>
         <nz-form-control [nzSpan]="12" nzHasFeedback>
-          <input nz-input formControlName="email" placeholder="" type="email">
-          <nz-form-explain *ngIf="validateForm.get('email').dirty&&validateForm.get('email').errors">
-            <ng-container *ngIf="validateForm.get('email').hasError('email')">
-              The input is not valid E-mail!
-            </ng-container>
-            <ng-container *ngIf="validateForm.get('email').hasError('required')">
-              Please input your E-mail!
+          <input nz-input formControlName="type" placeholder="请输入商品类型">
+          <nz-form-explain *ngIf="validateForm.get('type').dirty && validateForm.get('type').errors">
+            <ng-container *ngIf="validateForm.get('type').hasError('required')">
+              请输入商品类型
             </ng-container>
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSpan]="4" nzRequired>单位</nz-form-label>
-        <div>
-          <nz-form-control [nzSpan]="12" nzHasFeedback>
-            <input nz-input type="password" formControlName="password" (ngModelChange)="validateConfirmPassword()">
-            <nz-form-explain *ngIf="validateForm.get('password').dirty&&validateForm.get('password').hasError('required')">Please input your password!</nz-form-explain>
-          </nz-form-control>
-        </div>
+        <nz-form-control [nzSpan]="12" nzHasFeedback>
+          <input nz-input formControlName="unit" placeholder="请输入商品单位">
+          <nz-form-explain *ngIf="validateForm.get('unit').dirty && validateForm.get('unit').errors">
+            <ng-container *ngIf="validateForm.get('unit').hasError('required')">
+              请输入商品单位
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSpan]="4" nzRequired>价格</nz-form-label>
         <nz-form-control [nzSpan]="12" nzHasFeedback>
-          <input nz-input type="password" formControlName="confirm" placeholder="">
-          <nz-form-explain *ngIf="validateForm.get('confirm').dirty&&validateForm.get('confirm').errors">
-            <ng-container *ngIf="validateForm.get('confirm').hasError('required')">
-              Please confirm your password!
-            </ng-container>
-            <ng-container *ngIf="validateForm.get('confirm').hasError('confirm')">
-              Password is inconsistent!
+          <input nz-input formControlName="price" placeholder="请输入商品价格">
+          <nz-form-explain *ngIf="validateForm.get('price').dirty && validateForm.get('price').errors">
+            <ng-container *ngIf="validateForm.get('price').hasError('required')">
+              请输入商品价格
             </ng-container>
           </nz-form-explain>
         </nz-form-control>
@@ -57,22 +47,30 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="4" nzRequired>图片</nz-form-label>
         <nz-form-control [nzSpan]="12" nzHasFeedback>
-          <input nz-input type="password" formControlName="confirm" placeholder="">
-          <nz-form-explain *ngIf="validateForm.get('confirm').dirty&&validateForm.get('confirm').errors">
-            <ng-container *ngIf="validateForm.get('confirm').hasError('required')">
-              Please confirm your password!
+          <nz-upload
+            nzAction="https://jsonplaceholder.typicode.com/posts/"
+            nzListType="picture"
+            [(nzFileList)]="img">
+            <button nz-button>
+              <i nz-icon type="upload"></i><span>上传图片</span>
+            </button>
+          </nz-upload>
+          <!-- <input nz-input formControlName="img" placeholder="">
+          <nz-form-explain *ngIf="validateForm.get('img').dirty && validateForm.get('img').errors">
+            <ng-container *ngIf="validateForm.get('img').hasError('required')">
             </ng-container>
-            <ng-container *ngIf="validateForm.get('confirm').hasError('confirm')">
-              Password is inconsistent!
-            </ng-container>
-          </nz-form-explain>
+          </nz-form-explain> -->
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSpan]="4" nzRequired>说明</nz-form-label>
         <nz-form-control [nzSpan]="12">
-          <textarea formControlName="comment" nz-input rows="2" placeholder=""></textarea>
-          <nz-form-explain *ngIf="validateForm.get('comment').dirty&&validateForm.get('comment').hasError('required')">Please write something here!</nz-form-explain>
+          <textarea formControlName="comment" nz-input rows="4" placeholder="请输入商品说明"></textarea>
+          <nz-form-explain *ngIf="validateForm.get('comment').dirty&&validateForm.get('comment').hasError('required')">
+            <ng-container *ngIf="validateForm.get('comment').hasError('required')">
+              请输入商品说明
+            </ng-container>
+          </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>

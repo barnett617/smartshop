@@ -11,4 +11,14 @@ export default {
     beta: apiUrl + 'login',
     prod: apiUrl + 'login'
   },
+  goods: {
+    dev: '/goods.json',
+    beta: apiUrl + 'goods',
+    prod: apiUrl + 'goods'
+  },
+  singleGoods: {
+    dev: '/singleGoods.json',
+    beta: apiUrl + 'singleGoods',
+    prod: apiUrl + 'singleGoods'
+  },
 };

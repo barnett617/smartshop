@@ -21,7 +21,12 @@ export class AdminLoginComponent implements OnInit {
   password: string;
   validateForm: FormGroup;
 
-  constructor(private router: Router, private http:HttpService, private fb: FormBuilder, private message: NzMessageService,) { }
+  constructor(
+    private router: Router, 
+    private http:HttpService, 
+    private fb: FormBuilder, 
+    private message: NzMessageService,
+  ) { }
 
   ngOnInit() {
     this.validateForm = this.fb.group({
@@ -63,9 +68,8 @@ export class AdminLoginComponent implements OnInit {
           Cookie.set('loginInfo', JSON.stringify(formatData));
           this.message.success('登录成功');
           setTimeout(() => {
-            that.nextRout = 'admin-home';
-            that.router.navigate([that.nextRout]);
-          }, 2000)
+            that.router.navigate(['admin-home']);
+          }, 1500)
         } else {
           this.message.error(res.msg);
           console.log(res.msg);

@@ -26,7 +26,7 @@
         <td>{{data.price}}</td>
         <td>{{data.description}}</td>
         <td>
-          <a [routerLink]="[ 'goods-edit' ]">修改</a>
+          <a (click)="edit(data.id)">修改</a>
           <nz-divider nzType="vertical"></nz-divider>
           <a>删除</a>
         </td>

@@ -1,5 +1,7 @@
 import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { Menus } from '../../utils/enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-home',
@@ -10,6 +12,8 @@ export class AdminHomeComponent implements OnInit {
 
   // 左导是否收起
   isCollapsed = false;
+
+  menus = [];
   
   triggerTemplate = null;
 
@@ -22,9 +26,12 @@ export class AdminHomeComponent implements OnInit {
     this.triggerTemplate = this.customTrigger;
   }
 
-  constructor() { }
+  constructor(
+    private router: Router, 
+  ) { }
 
   ngOnInit() {
+    this.menus = Menus;
   }
 
   /**
@@ -32,6 +39,9 @@ export class AdminHomeComponent implements OnInit {
    */
   logout() {
     Cookie.set('loginInfo', null);
+    setTimeout(() => {
+      this.router.navigate(['admin-login']);
+    }, 1500)
   }
 
 }

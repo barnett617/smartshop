@@ -1,21 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { HttpService } from '../../services/http.service';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-goods-manage',
-  templateUrl: './admin-goods-manage.component.html',
-  styleUrls: ['./admin-goods-manage.component.scss']
+  selector: 'app-demo',
+  templateUrl: './demo.component.html',
+  styleUrls: ['./demo.component.scss']
 })
-export class AdminGoodsManageComponent implements OnInit {
-
-  dataSet = [];
+export class DemoComponent implements OnInit {
 
   constructor(
+    private http:HttpService, 
     private message: NzMessageService,
-    private http:HttpService,
-    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -26,11 +22,10 @@ export class AdminGoodsManageComponent implements OnInit {
     const params = {
 
     }
-    this.http.post('goods', params)
+    this.http.post('adminLogin', params)
       .subscribe(
       (res) => {
         if (+res.code === 200) {
-          this.dataSet = res.data;
         } else {
           console.log(res.msg);
         }
@@ -42,11 +37,4 @@ export class AdminGoodsManageComponent implements OnInit {
     )
   }
 
-  edit(id) {
-    this.router.navigate(['admin-home/goods-edit'], {
-      queryParams: {
-        id: id,
-      }
-    });
-  }
 }

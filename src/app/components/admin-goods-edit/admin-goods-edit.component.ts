@@ -7,6 +7,9 @@ import {
   Validators
 } from '@angular/forms';
 import { Observable, Observer } from 'rxjs';
+import { ActivatedRoute, Params } from '@angular/router';
+import { HttpService } from '../../services/http.service';
+import { NzMessageService, UploadFile } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-admin-goods-edit',
@@ -17,17 +20,88 @@ export class AdminGoodsEditComponent implements OnInit {
 
   validateForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.validateForm = this.fb.group({
-      userName: [ '', [ Validators.required ], [ this.userNameAsyncValidator ] ],
-      email   : [ '', [ Validators.email, Validators.required ] ],
-      password: [ '', [ Validators.required ] ],
-      confirm : [ '', [ this.confirmValidator ] ],
-      comment : [ '', [ Validators.required ] ]
-    });
+  defaultFileList = [
+    {
+      uid: -1,
+      name: '示例图片.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+    },
+  ];
+
+  img = [...this.defaultFileList];
+
+  constructor(
+    private fb: FormBuilder,
+    private activeRouter: ActivatedRoute,
+    private http:HttpService,
+    private message: NzMessageService,
+  ) {
+    this.formData({})
   }
 
   ngOnInit() {
+    this.getParams()
+  }
+
+  formData(obj) {
+    this.validateForm = this.fb.group({
+      // userName: [ '', [ Validators.required ], [ this.userNameAsyncValidator ] ],
+      name: [ '', [ Validators.required ] ],
+      type   : [ '', [ Validators.required ] ],
+      unit: [ '', [ Validators.required ] ],
+      price: [ '', [ Validators.required ] ],
+      // img: [ '', [ Validators.required ] ],
+      comment : [ '', [ Validators.required ] ],
+      confirm : [ '', [ this.confirmValidator ] ],
+    });
+  }
+
+  getParams() {
+    this.activeRouter.queryParams.subscribe((params: Params) => {
+       if (params['id']) {
+          this.getData(params['id']);
+       } else {
+          this.formData({})
+       }
+    })
+  }
+
+  getData(id) {
+    const params = {
+      id: id
+    }
+    this.http.post('singleGoods', params)
+      .subscribe(
+      (res) => {
+        if (+res.code === 200) {
+          const data = res.data
+          this.validateForm = this.fb.group({
+            name: [ data.name, [ Validators.required ] ],
+            type   : [ data.type, [ Validators.required ] ],
+            unit: [ data.unit, [ Validators.required ] ],
+            price: [ data.price, [ Validators.required ] ],
+            comment : [ data.comment, [ Validators.required ] ],
+            // confirm : [ data.type, [ this.confirmValidator ] ],
+          });
+          let fileList = [Object.assign({}, {
+            uid: -1,
+            name: '示例图片.png',
+            status: 'done',
+            url: data.img,
+            thumbUrl: data.img
+          })];
+          this.img = [...fileList]
+        } else {
+          console.log(res.msg);
+        }
+      },
+      (error) => {
+        this.message.error(error);
+        console.log(error);
+      }
+    )
   }
 
   submitForm = ($event, value) => {

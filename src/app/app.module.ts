@@ -25,6 +25,7 @@ import { AdminDishEditComponent } from './components/admin-dish-edit/admin-dish-
 import { AdminUserManageComponent } from './components/admin-user-manage/admin-user-manage.component';
 import { AdminUserEditComponent } from './components/admin-user-edit/admin-user-edit.component';
 import { AdminOrderManageComponent } from './components/admin-order-manage/admin-order-manage.component';
+import { DemoComponent } from './components/demo/demo.component';
 
 registerLocaleData(zh);
 
@@ -42,6 +43,7 @@ registerLocaleData(zh);
     AdminUserManageComponent,
     AdminUserEditComponent,
     AdminOrderManageComponent,
+    DemoComponent,
   ],
   imports: [
     BrowserModule,
