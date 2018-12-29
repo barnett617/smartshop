@@ -32,6 +32,7 @@ export class AdminHomeComponent implements OnInit {
 
   ngOnInit() {
     this.menus = Menus;
+    this.router.navigate(['admin-home/goods-manage']);
   }
 
   /**
@@ -39,9 +40,7 @@ export class AdminHomeComponent implements OnInit {
    */
   logout() {
     Cookie.set('loginInfo', null);
-    setTimeout(() => {
-      this.router.navigate(['admin-login']);
-    }, 1500)
+    this.router.navigate(['admin-login']);
   }
 
 }

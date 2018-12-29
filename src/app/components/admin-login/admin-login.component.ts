@@ -69,7 +69,7 @@ export class AdminLoginComponent implements OnInit {
           this.message.success('登录成功');
           setTimeout(() => {
             that.router.navigate(['admin-home']);
-          }, 1500)
+          }, 1000)
         } else {
           this.message.error(res.msg);
           console.log(res.msg);
