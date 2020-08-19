@@ -41,18 +41,28 @@ jobs:
     - name: build
       run: ng build --prod
     
+    # - name: copy file via ssh key
+    #   uses: appleboy/scp-action@master
+    #   env:
+    #     HOST: ${{ secrets.HOST }}
+    #     USERNAME: ${{ secrets.USERNAME }}
+    #     PORT: 22
+    #     KEY: ${{ secrets.forSSH }}
+    #   with:
+    #     source: "./dist/znsc-ng/"
+    #     target: "/home/webapp/"
+    #     # this is import
+    #     strip_components: 3
+      
     - name: copy file via ssh key
       uses: appleboy/scp-action@master
-      env:
-        HOST: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PORT: 22
-        KEY: ${{ secrets.forSSH }}
       with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        port: ${{ secrets.PORT }}
+        password: ${{ secrets.PASSWORD }}
         source: "./dist/znsc-ng/"
         target: "/home/webapp/"
-        # this is import
-        strip_components: 3
 
     # Runs a set of commands using the runners shell
     - name: Run a multi-line script
