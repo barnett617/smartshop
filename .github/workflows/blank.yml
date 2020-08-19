@@ -44,10 +44,10 @@ jobs:
     - name: copy file via ssh key
       uses: appleboy/scp-action@master
       env:
-        HOST: ${{ host }}
-        USERNAME: ${{ username }}
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
         PORT: 22
-        KEY: ${{ secrets.forSSH }}
+        KEY: ${{ secrets.PASSWORD }}
       with:
         source: "./dist/znsc-ng/"
         target: "/home/webapp/"
