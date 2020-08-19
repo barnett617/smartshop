@@ -61,7 +61,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         port: ${{ secrets.PORT }}
         password: ${{ secrets.PASSWORD }}
-        source: "./dist/znsc-ng/"
+        source: "./dist/znsc-ng"
         target: "/home/webapp/"
 
     # Runs a set of commands using the runners shell
