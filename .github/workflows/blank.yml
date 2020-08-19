@@ -47,7 +47,7 @@ jobs:
         HOST: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
         PORT: 22
-        KEY: ${{ secrets.PASSWORD }}
+        KEY: ${{ secrets.forSSH }}
       with:
         source: "./dist/znsc-ng/"
         target: "/home/webapp/"
